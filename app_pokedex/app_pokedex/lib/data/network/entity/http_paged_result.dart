@@ -16,7 +16,7 @@ class HttpPagedResult {
 
 @JsonSerializable()
 class PokemonEntity {
-  int id;
+  String id;
   int hp;
   int attack;
   int defense;

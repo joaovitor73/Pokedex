@@ -8,7 +8,7 @@ part of 'http_paged_result.dart';
 
 HttpPagedResult _$HttpPagedResultFromJson(Map<String, dynamic> json) =>
     HttpPagedResult(
-      pokemon: (json['pokemon'] as List<dynamic>)
+      pokemon: (json['data'] as List<dynamic>)
           .map((e) => PokemonEntity.fromJson(e as Map<String, dynamic>))
           .toList(),
     );
@@ -20,26 +20,26 @@ Map<String, dynamic> _$HttpPagedResultToJson(HttpPagedResult instance) =>
 
 PokemonEntity _$PokemonEntityFromJson(Map<String, dynamic> json) =>
     PokemonEntity(
-      id: (json['id'] as num).toInt(),
-      hp: (json['hp'] as num).toInt(),
-      attack: (json['attack'] as num).toInt(),
-      defense: (json['defense'] as num).toInt(),
-      spAttack: (json['spAttack'] as num).toInt(),
-      spDefense: (json['spDefense'] as num).toInt(),
-      speed: (json['speed'] as num).toInt(),
-      name: json['name'] as String,
+      id: json['id'] as String,
+      hp: (json['base']['HP'] as num).toInt(), // Acessa 'base' primeiro
+      attack: (json['base']['Attack'] as num).toInt(),
+      defense: (json['base']['Defense'] as num).toInt(),
+      spAttack: (json['base']['Sp. Attack'] as num).toInt(),
+      spDefense: (json['base']['Sp. Defense'] as num).toInt(),
+      speed: (json['base']['Speed'] as num).toInt(),
+      name: json['name']['english'] as String, // Especifica o nome em inglês
       type: (json['type'] as List<dynamic>).map((e) => e as String).toList(),
     );
 
 Map<String, dynamic> _$PokemonEntityToJson(PokemonEntity instance) =>
     <String, dynamic>{
       'id': instance.id,
-      'hp': instance.hp,
-      'attack': instance.attack,
-      'defense': instance.defense,
-      'spAttack': instance.spAttack,
-      'spDefense': instance.spDefense,
-      'speed': instance.speed,
+      'HP': instance.hp,
+      'Attack': instance.attack,
+      'Defense': instance.defense,
+      'Sp. Attack': instance.spAttack,
+      'Sp. Defense': instance.spDefense,
+      'Speed': instance.speed,
       'name': instance.name,
       'type': instance.type,
     };
