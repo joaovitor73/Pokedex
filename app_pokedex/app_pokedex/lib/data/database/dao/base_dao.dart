@@ -33,6 +33,7 @@ abstract class BaseDao {
       CREATE TABLE ${PokemonDatabaseContract.pokemonTable}(
       ${PokemonDatabaseContract.idColumn} INTEGER PRIMARY KEY AUTOINCREMENT,
       ${PokemonDatabaseContract.nomeColumn} TEXT NOT NULL,
+       ${PokemonDatabaseContract.tipoColumn} TEXT NOT NULL,
       ${PokemonDatabaseContract.hpColumn} INTEGER NOT NULL,
       ${PokemonDatabaseContract.attackColumn} INTEGER NOT NULL,
       ${PokemonDatabaseContract.defenseColumn} INTEGER NOT NULL,
@@ -43,5 +44,14 @@ abstract class BaseDao {
       );
       ''',
     );
+  }
+
+  Future<void> deleteAndRecreateDatabase() async {
+    Database db = await _getDatabase();
+    final batch = db.batch();
+    batch.execute(
+        'DROP TABLE IF EXISTS ${PokemonDatabaseContract.pokemonTable}');
+    _createPokemonsTableV1(batch);
+    await batch.commit();
   }
 }

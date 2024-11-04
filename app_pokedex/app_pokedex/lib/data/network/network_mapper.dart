@@ -5,6 +5,7 @@ import 'entity/http_paged_result.dart';
 
 class NetworkMapper {
   Pokemon toPokemon(PokemonEntity entity) {
+    print("Pokemon: ${entity.name}");
     try {
       return Pokemon(
           nome: entity.name,
@@ -16,7 +17,7 @@ class NetworkMapper {
           speed: entity.speed,
           tipo: entity.type,
           url:
-              "https://github.com/fanzeyi/pokemon.json/blob/master/images/${entity.id.toString().padLeft(3, '0')}.png");
+              "https://raw.githubusercontent.com/fanzeyi/pokemon.json/master/images/${entity.id.toString().padLeft(3, '0')}.png");
     } catch (e) {
       throw MapperException<PokemonEntity, Pokemon>(e.toString());
     }

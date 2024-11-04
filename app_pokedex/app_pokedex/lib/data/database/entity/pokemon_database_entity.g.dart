@@ -11,6 +11,7 @@ PokemonDatabaseEntity _$PokemonDatabaseEntityFromJson(
     PokemonDatabaseEntity(
       id: (json['id'] as num?)?.toInt(),
       nome: json['nome'] as String,
+      tipo: json['tipo'] as String,
       attack: (json['attack'] as num).toInt(),
       defense: (json['defense'] as num).toInt(),
       hp: (json['hp'] as num).toInt(),
@@ -25,6 +26,7 @@ Map<String, dynamic> _$PokemonDatabaseEntityToJson(
     <String, dynamic>{
       'id': instance.id,
       'nome': instance.nome,
+      'tipo': instance.tipo,
       'hp': instance.hp,
       'attack': instance.attack,
       'defense': instance.defense,

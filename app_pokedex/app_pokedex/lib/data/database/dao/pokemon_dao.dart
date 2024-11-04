@@ -26,12 +26,18 @@ class PokemonDao extends BaseDao {
 
   Future<void> insertAll(List<PokemonDatabaseEntity> entities) async {
     final Database db = await getDb();
+
     await db.transaction((transaction) async {
       for (final entity in entities) {
-        transaction.insert(
+        print(
+            'Inserindo entidade: ${entity.toJson()}'); // Print antes da inserção
+        await transaction.insert(
             PokemonDatabaseContract.pokemonTable, entity.toJson());
+        print('Entidade inserida com sucesso.'); // Print após a inserção
       }
     });
+
+    print('Todas as entidades foram inseridas.');
   }
 
   Future<void> deleteAll() async {

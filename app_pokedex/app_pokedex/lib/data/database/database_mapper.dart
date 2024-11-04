@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:app_pokedex/data/database/entity/pokemon_database_entity.dart';
 import 'package:app_pokedex/domain/exception/mapper_exception.dart';
 import 'package:app_pokedex/domain/pokemon.dart';
@@ -13,7 +15,7 @@ class DatabaseMapper {
           spAttack: entity.spAttack,
           spDefense: entity.spDefense,
           speed: entity.speed,
-          // tipo: entity.typeColumn,
+          tipo: List<String>.from(jsonDecode(entity.tipo)),
           url: entity.url);
     } catch (e) {
       throw MapperException<PokemonDatabaseEntity, Pokemon>(e.toString());
@@ -33,6 +35,7 @@ class DatabaseMapper {
       return PokemonDatabaseEntity(
           id: null,
           nome: pokemon.nome,
+          tipo: jsonEncode(pokemon.tipo),
           attack: pokemon.attack,
           defense: pokemon.defense,
           hp: pokemon.hp,
@@ -47,10 +50,10 @@ class DatabaseMapper {
 
   List<PokemonDatabaseEntity> topokemonDatabaseEntities(
       List<Pokemon> pokemons) {
-    final List<PokemonDatabaseEntity> movieDatabaseEntities = [];
+    final List<PokemonDatabaseEntity> pokemonDatabaseEntities = [];
     for (var p in pokemons) {
-      movieDatabaseEntities.add(toPokemonDatabaseEntity(p));
+      pokemonDatabaseEntities.add(toPokemonDatabaseEntity(p));
     }
-    return movieDatabaseEntities;
+    return pokemonDatabaseEntities;
   }
 }

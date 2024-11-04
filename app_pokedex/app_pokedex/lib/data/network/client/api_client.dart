@@ -32,7 +32,6 @@ class ApiClient {
     } else if (response.statusCode == 200) {
       final HttpPagedResult receivedData =
           HttpPagedResult.fromJson(response.data as Map<String, dynamic>);
-      print(receivedData.pokemon);
       return receivedData.pokemon;
     } else {
       throw Exception('Unknown error');

@@ -17,7 +17,7 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$Pokemon {
   String get nome => throw _privateConstructorUsedError;
-  List<String>? get tipo => throw _privateConstructorUsedError;
+  List<String> get tipo => throw _privateConstructorUsedError;
   int get hp => throw _privateConstructorUsedError;
   int get attack => throw _privateConstructorUsedError;
   int get defense => throw _privateConstructorUsedError;
@@ -39,7 +39,7 @@ abstract class $PokemonCopyWith<$Res> {
   @useResult
   $Res call(
       {String nome,
-      List<String>? tipo,
+      List<String> tipo,
       int hp,
       int attack,
       int defense,
@@ -65,7 +65,7 @@ class _$PokemonCopyWithImpl<$Res, $Val extends Pokemon>
   @override
   $Res call({
     Object? nome = null,
-    Object? tipo = freezed,
+    Object? tipo = null,
     Object? hp = null,
     Object? attack = null,
     Object? defense = null,
@@ -79,10 +79,10 @@ class _$PokemonCopyWithImpl<$Res, $Val extends Pokemon>
           ? _value.nome
           : nome // ignore: cast_nullable_to_non_nullable
               as String,
-      tipo: freezed == tipo
+      tipo: null == tipo
           ? _value.tipo
           : tipo // ignore: cast_nullable_to_non_nullable
-              as List<String>?,
+              as List<String>,
       hp: null == hp
           ? _value.hp
           : hp // ignore: cast_nullable_to_non_nullable
@@ -124,7 +124,7 @@ abstract class _$$PokemonImplCopyWith<$Res> implements $PokemonCopyWith<$Res> {
   @useResult
   $Res call(
       {String nome,
-      List<String>? tipo,
+      List<String> tipo,
       int hp,
       int attack,
       int defense,
@@ -148,7 +148,7 @@ class __$$PokemonImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? nome = null,
-    Object? tipo = freezed,
+    Object? tipo = null,
     Object? hp = null,
     Object? attack = null,
     Object? defense = null,
@@ -162,10 +162,10 @@ class __$$PokemonImplCopyWithImpl<$Res>
           ? _value.nome
           : nome // ignore: cast_nullable_to_non_nullable
               as String,
-      tipo: freezed == tipo
+      tipo: null == tipo
           ? _value._tipo
           : tipo // ignore: cast_nullable_to_non_nullable
-              as List<String>?,
+              as List<String>,
       hp: null == hp
           ? _value.hp
           : hp // ignore: cast_nullable_to_non_nullable
@@ -203,7 +203,7 @@ class __$$PokemonImplCopyWithImpl<$Res>
 class _$PokemonImpl implements _Pokemon {
   const _$PokemonImpl(
       {required this.nome,
-      final List<String>? tipo,
+      required final List<String> tipo,
       required this.hp,
       required this.attack,
       required this.defense,
@@ -215,14 +215,12 @@ class _$PokemonImpl implements _Pokemon {
 
   @override
   final String nome;
-  final List<String>? _tipo;
+  final List<String> _tipo;
   @override
-  List<String>? get tipo {
-    final value = _tipo;
-    if (value == null) return null;
+  List<String> get tipo {
     if (_tipo is EqualUnmodifiableListView) return _tipo;
     // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(value);
+    return EqualUnmodifiableListView(_tipo);
   }
 
   @override
@@ -288,7 +286,7 @@ class _$PokemonImpl implements _Pokemon {
 abstract class _Pokemon implements Pokemon {
   const factory _Pokemon(
       {required final String nome,
-      final List<String>? tipo,
+      required final List<String> tipo,
       required final int hp,
       required final int attack,
       required final int defense,
@@ -300,7 +298,7 @@ abstract class _Pokemon implements Pokemon {
   @override
   String get nome;
   @override
-  List<String>? get tipo;
+  List<String> get tipo;
   @override
   int get hp;
   @override

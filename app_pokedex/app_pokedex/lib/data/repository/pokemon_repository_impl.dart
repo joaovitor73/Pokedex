@@ -29,7 +29,7 @@ class PokemonRepositorImpl implements PokemonRepository {
     }
     //Caso contrário, buscar pela API remota
     final networkEntity = await apiClient.getPokemons(page: page, limit: limit);
-    print("teste: ${networkEntity.length}");
+
     final pokemons = networkMapper.toPokemons(networkEntity);
     //E salvar os dados no banco local para cash
     pokemonDao.insertAll(databaseMapper.topokemonDatabaseEntities(pokemons));
