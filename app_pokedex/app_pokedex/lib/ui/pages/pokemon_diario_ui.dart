@@ -11,12 +11,22 @@ class PokemonDiarioUi extends StatelessWidget {
     final PokemonDiario pokemonDiario =
         Provider.of<PokemonDiario>(context, listen: true);
     return Scaffold(
-      appBar: MyAppBar(title: "Encontro Diário"),
-      body: Center(
-        child: pokemonDiario.pokemonDiario == null
-            ? CircularProgressIndicator() // Exibe um indicador de carregamento até o Pokémon ser carregado.
-            : Text('Pokémon do dia: ${pokemonDiario.pokemonDiario!.nome}'),
-      ),
-    );
+        appBar: MyAppBar(title: "Encontro Diário"),
+        body: Container(
+          height: 350,
+          decoration: BoxDecoration(
+            color: Colors.blue,
+            borderRadius: const BorderRadius.only(
+              bottomLeft:
+                  Radius.circular(80.0), // Raio para o canto inferior esquerdo
+              bottomRight:
+                  Radius.circular(80.0), // Raio para o canto inferior direito
+            ),
+            image: DecorationImage(
+                image: NetworkImage(pokemonDiario.pokemonDiario!.url),
+                scale: 1,
+                fit: BoxFit.cover),
+          ),
+        ));
   }
 }
