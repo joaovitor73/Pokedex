@@ -19,6 +19,16 @@ class PokemonDao extends BaseDao {
     });
   }
 
+  Future<PokemonDatabaseEntity> selectById(int id) async {
+    final Database db = await getDb();
+    final List<Map<String, dynamic>> maps = await db.query(
+      PokemonDatabaseContract.pokemonTable,
+      where: '${PokemonDatabaseContract.idColumn} = ?',
+      whereArgs: [id],
+    );
+    return PokemonDatabaseEntity.fromJson(maps.first);
+  }
+
   Future<void> insert(PokemonDatabaseEntity entity) async {
     final Database db = await getDb();
     await db.insert(PokemonDatabaseContract.pokemonTable, entity.toJson());
@@ -43,5 +53,13 @@ class PokemonDao extends BaseDao {
   Future<void> deleteAll() async {
     final Database db = await getDb();
     await db.delete(PokemonDatabaseContract.pokemonTable);
+  }
+
+  Future<int> getRowCount() async {
+    final db = await getDb();
+    var result = await db.rawQuery(
+        'SELECT COUNT(*) FROM ${PokemonDatabaseContract.pokemonTable}');
+    int count = Sqflite.firstIntValue(result) ?? 0; //
+    return count;
   }
 }

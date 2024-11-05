@@ -18,6 +18,18 @@ class PokemonRepositorImpl implements PokemonRepository {
     required this.networkMapper,
   });
 
+  @override
+  Future<Pokemon> getPokemon({required int id}) async {
+    final dbEntity = await pokemonDao.selectById(id);
+    return databaseMapper.toPokemon(dbEntity);
+  }
+
+  @override
+  Future<int> getLength() async {
+    return await pokemonDao.getRowCount();
+  }
+
+  @override
   Future<List<Pokemon>> getPokemons(
       {required int page, required int limit}) async {
     //Tentar carregar a partir do banco de dados
