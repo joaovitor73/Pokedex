@@ -16,7 +16,7 @@ class PokemonCard extends StatelessWidget {
     return Card(
       elevation: 5,
       color: pokemon.tipo != null
-          ? CorPokemon.getTypeColor(pokemon.tipo![0]) ?? Colors.white
+          ? CorPokemon.getTypeColor(pokemon.tipo[0]) ?? Colors.white
           : Colors.white,
       child: Row(
         children: [

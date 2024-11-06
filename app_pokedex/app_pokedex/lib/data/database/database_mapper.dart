@@ -1,7 +1,9 @@
 import 'dart:convert';
 
+import 'package:app_pokedex/data/database/entity/meus_pokemons_database_entity.dart';
 import 'package:app_pokedex/data/database/entity/pokemon_database_entity.dart';
 import 'package:app_pokedex/domain/exception/mapper_exception.dart';
+import 'package:app_pokedex/domain/meus_pokemons.dart';
 import 'package:app_pokedex/domain/pokemon.dart';
 
 class DatabaseMapper {
@@ -23,11 +25,11 @@ class DatabaseMapper {
   }
 
   List<Pokemon> toPokemons(List<PokemonDatabaseEntity> entities) {
-    final List<Pokemon> movies = [];
+    final List<Pokemon> pokemons = [];
     for (var movieEntity in entities) {
-      movies.add(toPokemon(movieEntity));
+      pokemons.add(toPokemon(movieEntity));
     }
-    return movies;
+    return pokemons;
   }
 
   PokemonDatabaseEntity toPokemonDatabaseEntity(Pokemon pokemon) {
@@ -55,5 +57,43 @@ class DatabaseMapper {
       pokemonDatabaseEntities.add(toPokemonDatabaseEntity(p));
     }
     return pokemonDatabaseEntities;
+  }
+
+  MeusPokemons toMeuPokemon(MeusPokemonsDatabaseEntity entity) {
+    try {
+      return MeusPokemons(
+        id: entity.id,
+      );
+    } catch (e) {
+      throw MapperException<PokemonDatabaseEntity, MeusPokemons>(e.toString());
+    }
+  }
+
+  List<MeusPokemons> toMeusPokemons(List<MeusPokemonsDatabaseEntity> entities) {
+    final List<MeusPokemons> meusPokemons = [];
+    for (var pokemonEntity in entities) {
+      meusPokemons.add(toMeuPokemon(pokemonEntity));
+    }
+    return meusPokemons;
+  }
+
+  MeusPokemonsDatabaseEntity toMeusPokemonsDatabaseEntity(
+      MeusPokemons meuspokemons) {
+    try {
+      return MeusPokemonsDatabaseEntity(
+        id: meuspokemons.id,
+      );
+    } catch (e) {
+      throw MapperException<PokemonDatabaseEntity, MeusPokemons>(e.toString());
+    }
+  }
+
+  List<MeusPokemonsDatabaseEntity> tomeuspokemonsDatabaseEntities(
+      List<MeusPokemons> meuspokemons) {
+    final List<MeusPokemonsDatabaseEntity> meuspokemonDatabaseEntities = [];
+    for (var mp in meuspokemons) {
+      meuspokemonDatabaseEntities.add(toMeusPokemonsDatabaseEntity(mp));
+    }
+    return meuspokemonDatabaseEntities;
   }
 }

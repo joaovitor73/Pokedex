@@ -76,8 +76,8 @@ class _ListPokemonState extends State<ListPokemon> {
               child: const Icon(FeatherIcons.calendar, color: Colors.black),
               backgroundColor: Colors.white,
               label: 'Pokémon Diário',
-              onTap: () => {
-                    pokemonDiario.pokemonDia(
+              onTap: () async => {
+                    await pokemonDiario.pokemonDia(
                         Provider.of<Prefes>(context, listen: false),
                         pokemonRepositorImpl),
                     Navigator.pushNamed(context, '/pokemonDiario'),

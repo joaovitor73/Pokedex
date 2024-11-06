@@ -8,7 +8,7 @@ class PokemonDiario extends ChangeNotifier {
   Pokemon? _pokemonDiario;
   Pokemon? get pokemonDiario => _pokemonDiario;
 
-  void pokemonDia(
+  Future<void> pokemonDia(
       Prefes prefes, PokemonRepositorImpl pokemonRepositorImpl) async {
     DateTime data = DateTime.now();
     bool novoDia = await prefes.novoDia(data);
@@ -29,6 +29,7 @@ class PokemonDiario extends ChangeNotifier {
       Prefes prefes, PokemonRepositorImpl pokemonRepositorImpl) async {
     var idPok = Random().nextInt(await pokemonRepositorImpl.getLength());
     prefes.setId(idPok);
+    print(_pokemonDiario?.nome);
     _pokemonDiario = await pokemonRepositorImpl.getPokemon(id: idPok);
   }
 }

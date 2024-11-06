@@ -2,9 +2,13 @@ import 'package:flutter/material.dart';
 
 class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
+  final Color colors;
+  final Color colorText;
   const MyAppBar({
     super.key,
     required this.title,
+    this.colors = Colors.white,
+    this.colorText = Colors.black,
   });
 
   @override
@@ -12,23 +16,14 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
     return AppBar(
       centerTitle: true,
       elevation: 10,
-      backgroundColor: Colors.white,
+      backgroundColor: colors,
       title: Text(
         title,
-        style: const TextStyle(
+        style: TextStyle(
           fontWeight: FontWeight.w500,
-          color: Colors.black,
+          color: colorText,
         ),
       ),
-      /* actions: const [
-        IconButton(
-          onPressed: null,
-          icon: Icon(
-            Icons.search,
-            color: Colors.white,
-          ),
-        ),
-      ],*/
     );
   }
 
