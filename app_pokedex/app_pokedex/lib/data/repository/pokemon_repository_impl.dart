@@ -1,8 +1,10 @@
+import 'package:app_pokedex/data/database/dao/meus_pokemons_dao.dart';
 import 'package:app_pokedex/data/database/dao/pokemon_dao.dart';
 import 'package:app_pokedex/data/database/database_mapper.dart';
 import 'package:app_pokedex/data/network/client/api_client.dart';
 import 'package:app_pokedex/data/network/network_mapper.dart';
 import 'package:app_pokedex/data/repository/pokemon_repository.dart';
+import 'package:app_pokedex/domain/meus_pokemons_crud.dart';
 import 'package:app_pokedex/domain/pokemon.dart';
 
 class PokemonRepositorImpl implements PokemonRepository {
@@ -10,13 +12,27 @@ class PokemonRepositorImpl implements PokemonRepository {
   final NetworkMapper networkMapper;
   final PokemonDao pokemonDao;
   final DatabaseMapper databaseMapper;
+  final MeusPokemonsDao meusPokemonsDao;
+  final MeusPokemonsCrud meusPokemonsCrud;
 
   PokemonRepositorImpl({
     required this.pokemonDao,
     required this.databaseMapper,
     required this.apiClient,
     required this.networkMapper,
+    required this.meusPokemonsDao,
+    required this.meusPokemonsCrud,
   });
+
+  Future<List<Pokemon>> getMeusPokemons() async {
+    final dbEntity = await meusPokemonsDao.selectAll();
+    return databaseMapper
+        .toPokemons((await pokemonDao.selectAllById(dbEntity)));
+  }
+
+  Future<void> insertMeuPokemon(int id) async {
+    await meusPokemonsDao.insert(id);
+  }
 
   @override
   Future<Pokemon> getPokemon({required int id}) async {

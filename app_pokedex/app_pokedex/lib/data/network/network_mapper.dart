@@ -8,6 +8,7 @@ class NetworkMapper {
     print("Pokemon: ${entity.name}");
     try {
       return Pokemon(
+          id: entity.id,
           nome: entity.name,
           attack: entity.attack,
           defense: entity.defense,

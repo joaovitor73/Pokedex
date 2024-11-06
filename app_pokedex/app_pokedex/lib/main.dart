@@ -1,6 +1,8 @@
 import 'package:app_pokedex/core/configure_providers.dart';
 import 'package:app_pokedex/data/repository/pokemon_repository_impl.dart';
+import 'package:app_pokedex/domain/meus_pokemons.dart';
 import 'package:app_pokedex/ui/pages/list_pokemon.dart';
+import 'package:app_pokedex/ui/pages/meus_pokemos_ui.dart';
 import 'package:app_pokedex/ui/pages/pokemon_diario_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -34,6 +36,7 @@ class MyApp extends StatelessWidget {
       routes: {
         '/': (context) => const ListPokemon(),
         '/pokemonDiario': (context) => const PokemonDiarioUi(),
+        '/meusPkemons': (context) => const MeusPokemonsUI()
       },
     );
   }

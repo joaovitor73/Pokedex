@@ -86,7 +86,7 @@ class _ListPokemonState extends State<ListPokemon> {
             child: const Icon(FeatherIcons.database, color: Colors.black),
             backgroundColor: Colors.white,
             label: 'Meus Pokémons',
-            onTap: () => print("Meus Pokémons"),
+            onTap: () => Navigator.pushNamed(context, '/meusPkemons'),
           ),
         ],
       ),

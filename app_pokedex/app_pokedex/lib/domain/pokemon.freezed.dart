@@ -16,6 +16,7 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$Pokemon {
+  String? get id => throw _privateConstructorUsedError;
   String get nome => throw _privateConstructorUsedError;
   List<String> get tipo => throw _privateConstructorUsedError;
   int get hp => throw _privateConstructorUsedError;
@@ -38,7 +39,8 @@ abstract class $PokemonCopyWith<$Res> {
       _$PokemonCopyWithImpl<$Res, Pokemon>;
   @useResult
   $Res call(
-      {String nome,
+      {String? id,
+      String nome,
       List<String> tipo,
       int hp,
       int attack,
@@ -64,6 +66,7 @@ class _$PokemonCopyWithImpl<$Res, $Val extends Pokemon>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? id = freezed,
     Object? nome = null,
     Object? tipo = null,
     Object? hp = null,
@@ -75,6 +78,10 @@ class _$PokemonCopyWithImpl<$Res, $Val extends Pokemon>
     Object? url = null,
   }) {
     return _then(_value.copyWith(
+      id: freezed == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String?,
       nome: null == nome
           ? _value.nome
           : nome // ignore: cast_nullable_to_non_nullable
@@ -123,7 +130,8 @@ abstract class _$$PokemonImplCopyWith<$Res> implements $PokemonCopyWith<$Res> {
   @override
   @useResult
   $Res call(
-      {String nome,
+      {String? id,
+      String nome,
       List<String> tipo,
       int hp,
       int attack,
@@ -147,6 +155,7 @@ class __$$PokemonImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? id = freezed,
     Object? nome = null,
     Object? tipo = null,
     Object? hp = null,
@@ -158,6 +167,10 @@ class __$$PokemonImplCopyWithImpl<$Res>
     Object? url = null,
   }) {
     return _then(_$PokemonImpl(
+      id: freezed == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String?,
       nome: null == nome
           ? _value.nome
           : nome // ignore: cast_nullable_to_non_nullable
@@ -202,7 +215,8 @@ class __$$PokemonImplCopyWithImpl<$Res>
 
 class _$PokemonImpl implements _Pokemon {
   const _$PokemonImpl(
-      {required this.nome,
+      {this.id,
+      required this.nome,
       required final List<String> tipo,
       required this.hp,
       required this.attack,
@@ -213,6 +227,8 @@ class _$PokemonImpl implements _Pokemon {
       required this.url})
       : _tipo = tipo;
 
+  @override
+  final String? id;
   @override
   final String nome;
   final List<String> _tipo;
@@ -240,7 +256,7 @@ class _$PokemonImpl implements _Pokemon {
 
   @override
   String toString() {
-    return 'Pokemon(nome: $nome, tipo: $tipo, hp: $hp, attack: $attack, defense: $defense, spAttack: $spAttack, spDefense: $spDefense, speed: $speed, url: $url)';
+    return 'Pokemon(id: $id, nome: $nome, tipo: $tipo, hp: $hp, attack: $attack, defense: $defense, spAttack: $spAttack, spDefense: $spDefense, speed: $speed, url: $url)';
   }
 
   @override
@@ -248,6 +264,7 @@ class _$PokemonImpl implements _Pokemon {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$PokemonImpl &&
+            (identical(other.id, id) || other.id == id) &&
             (identical(other.nome, nome) || other.nome == nome) &&
             const DeepCollectionEquality().equals(other._tipo, _tipo) &&
             (identical(other.hp, hp) || other.hp == hp) &&
@@ -264,6 +281,7 @@ class _$PokemonImpl implements _Pokemon {
   @override
   int get hashCode => Object.hash(
       runtimeType,
+      id,
       nome,
       const DeepCollectionEquality().hash(_tipo),
       hp,
@@ -285,7 +303,8 @@ class _$PokemonImpl implements _Pokemon {
 
 abstract class _Pokemon implements Pokemon {
   const factory _Pokemon(
-      {required final String nome,
+      {final String? id,
+      required final String nome,
       required final List<String> tipo,
       required final int hp,
       required final int attack,
@@ -295,6 +314,8 @@ abstract class _Pokemon implements Pokemon {
       required final int speed,
       required final String url}) = _$PokemonImpl;
 
+  @override
+  String? get id;
   @override
   String get nome;
   @override

@@ -10,6 +10,7 @@ class DatabaseMapper {
   Pokemon toPokemon(PokemonDatabaseEntity entity) {
     try {
       return Pokemon(
+          id: entity.id.toString(),
           nome: entity.nome,
           attack: entity.attack,
           defense: entity.defense,

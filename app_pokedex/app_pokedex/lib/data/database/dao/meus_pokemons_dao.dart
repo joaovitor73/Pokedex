@@ -4,19 +4,20 @@ import 'package:app_pokedex/data/database/entity/pokemon_database_entity.dart';
 import 'package:sqflite/sqflite.dart';
 
 class MeusPokemonsDao extends BaseDao {
-  Future<List<MeusPokemonsDatabaseEntity>> selectAll() async {
+  Future<List<int>> selectAll() async {
     final Database db = await getDb();
     final List<Map<String, dynamic>> maps = await db.query(
       MeusPokemonsDatabaseContract.meusPokemonsTable,
       orderBy: '${MeusPokemonsDatabaseContract.idColumn} ASC',
     );
     return List.generate(maps.length, (i) {
-      return MeusPokemonsDatabaseEntity.fromJson(maps[i]);
+      return maps[i][MeusPokemonsDatabaseContract.idColumn] as int;
     });
   }
 
   Future<void> insert(int id) async {
     final Database db = await getDb();
+    print("adicionando o pokemon de id: ${id}");
     await db.insert(MeusPokemonsDatabaseContract.meusPokemonsTable,
         {MeusPokemonsDatabaseContract.idColumn: id});
   }

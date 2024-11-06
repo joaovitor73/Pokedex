@@ -29,6 +29,14 @@ class PokemonDao extends BaseDao {
     return PokemonDatabaseEntity.fromJson(maps.first);
   }
 
+  Future<List<PokemonDatabaseEntity>> selectAllById(List<int> ids) async {
+    final List<PokemonDatabaseEntity> pokemons = [];
+    for (int id in ids) {
+      pokemons.add(await selectById(id));
+    }
+    return pokemons;
+  }
+
   Future<void> insert(PokemonDatabaseEntity entity) async {
     final Database db = await getDb();
     await db.insert(PokemonDatabaseContract.pokemonTable, entity.toJson());

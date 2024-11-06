@@ -1,3 +1,5 @@
+import 'package:app_pokedex/data/repository/pokemon_repository_impl.dart';
+import 'package:app_pokedex/domain/meus_pokemons_crud.dart';
 import 'package:app_pokedex/domain/pokemon_diario.dart';
 import 'package:app_pokedex/ui/widget/my_app_bar.dart';
 import 'package:app_pokedex/utils/cor_pokemon.dart';
@@ -11,6 +13,10 @@ class PokemonDiarioUi extends StatelessWidget {
   Widget build(BuildContext context) {
     final PokemonDiario pokemonDiario =
         Provider.of<PokemonDiario>(context, listen: true);
+    final MeusPokemonsCrud meusPokemonsCrud =
+        Provider.of<MeusPokemonsCrud>(context, listen: false);
+    final PokemonRepositorImpl pokemonRepositorImpl =
+        Provider.of<PokemonRepositorImpl>(context, listen: false);
     return Scaffold(
       body: Column(
         children: [
@@ -61,7 +67,11 @@ class PokemonDiarioUi extends StatelessWidget {
       ),
       floatingActionButton: FloatingActionButton(
         elevation: 5,
-        onPressed: null,
+        onPressed: () async => {
+          await meusPokemonsCrud.adicionarPokemon(
+              int.parse(pokemonDiario.pokemonDiario!.id ?? '0'),
+              pokemonRepositorImpl),
+        },
         backgroundColor:
             CorPokemon.getTypeColor(pokemonDiario.pokemonDiario!.tipo[0]) ??
                 Colors.white,

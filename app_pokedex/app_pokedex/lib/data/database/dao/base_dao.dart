@@ -1,3 +1,4 @@
+import 'package:app_pokedex/data/database/entity/meus_pokemons_database_entity.dart';
 import 'package:app_pokedex/data/database/entity/pokemon_database_entity.dart';
 import 'package:flutter/material.dart';
 import 'package:path/path.dart';
@@ -28,12 +29,12 @@ abstract class BaseDao {
   }
 
   void _createPokemonsTableV1(Batch batch) {
-    batch.execute(
-      '''
-      CREATE TABLE ${PokemonDatabaseContract.pokemonTable}(
+    // Criação da tabela principal de Pokémon
+    batch.execute('''
+    CREATE TABLE ${PokemonDatabaseContract.pokemonTable} (
       ${PokemonDatabaseContract.idColumn} INTEGER PRIMARY KEY AUTOINCREMENT,
       ${PokemonDatabaseContract.nomeColumn} TEXT NOT NULL,
-       ${PokemonDatabaseContract.tipoColumn} TEXT NOT NULL,
+      ${PokemonDatabaseContract.tipoColumn} TEXT NOT NULL,
       ${PokemonDatabaseContract.hpColumn} INTEGER NOT NULL,
       ${PokemonDatabaseContract.attackColumn} INTEGER NOT NULL,
       ${PokemonDatabaseContract.defenseColumn} INTEGER NOT NULL,
@@ -41,9 +42,16 @@ abstract class BaseDao {
       ${PokemonDatabaseContract.spDefenseColumn} INTEGER NOT NULL,
       ${PokemonDatabaseContract.speedColumn} INTEGER NOT NULL,
       ${PokemonDatabaseContract.urlColumn} TEXT NOT NULL
-      );
-      ''',
     );
+    ''');
+
+    // Criação da tabela para os Pokémon do usuário
+    batch.execute('''
+    CREATE TABLE ${MeusPokemonsDatabaseContract.meusPokemonsTable} (
+      ${MeusPokemonsDatabaseContract.idColumn} INTEGER
+  
+    );
+    ''');
   }
 
   Future<void> deleteAndRecreateDatabase() async {
