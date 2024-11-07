@@ -18,7 +18,7 @@ class ConfigureProviders {
 
   static Future<ConfigureProviders> createDependencyTree() async {
     final api_client =
-        ApiClient(baseUrl: "https://a666-177-20-152-121.ngrok-free.app");
+        ApiClient(baseUrl: "https://71e0-177-20-152-121.ngrok-free.app");
     final network_mapper = NetworkMapper();
     final database_mapper = DatabaseMapper();
     final pokemonDao = PokemonDao();

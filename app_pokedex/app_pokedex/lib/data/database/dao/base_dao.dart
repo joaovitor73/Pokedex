@@ -48,10 +48,10 @@ abstract class BaseDao {
     // Criação da tabela para os Pokémon do usuário
     batch.execute('''
     CREATE TABLE ${MeusPokemonsDatabaseContract.meusPokemonsTable} (
-      ${MeusPokemonsDatabaseContract.idColumn} INTEGER
-  
+      ${MeusPokemonsDatabaseContract.idColumn} INTEGER PRIMARY KEY AUTOINCREMENT, 
+      ${MeusPokemonsDatabaseContract.idPokemonColumn} INTEGER NOT NULL  
     );
-    ''');
+''');
   }
 
   Future<void> deleteAndRecreateDatabase() async {

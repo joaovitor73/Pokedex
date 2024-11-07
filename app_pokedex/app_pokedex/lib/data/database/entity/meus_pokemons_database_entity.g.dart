@@ -9,11 +9,13 @@ part of 'meus_pokemons_database_entity.dart';
 MeusPokemonsDatabaseEntity _$MeusPokemonsDatabaseEntityFromJson(
         Map<String, dynamic> json) =>
     MeusPokemonsDatabaseEntity(
-      id: (json['id'] as num).toInt(),
+      id: (json['id'] as num?)?.toInt(),
+      idPokemon: (json['id_pokemon'] as num).toInt(),
     );
 
 Map<String, dynamic> _$MeusPokemonsDatabaseEntityToJson(
         MeusPokemonsDatabaseEntity instance) =>
     <String, dynamic>{
       'id': instance.id,
+      'id_pokemon': instance.idPokemon,
     };

@@ -6,4 +6,9 @@ class MeusPokemonsCrud {
       int id, PokemonRepositorImpl pokemonRepository) async {
     await pokemonRepository.insertMeuPokemon(id);
   }
+
+  Future<void> removerPokemon(
+      int id, PokemonRepositorImpl pokemonRepository) async {
+    await pokemonRepository.removerPokemon(id);
+  }
 }

@@ -4,10 +4,14 @@ part 'meus_pokemons_database_entity.g.dart';
 @JsonSerializable()
 class MeusPokemonsDatabaseEntity {
   @JsonKey(name: MeusPokemonsDatabaseContract.idColumn)
-  final int id;
+  final int? id;
+
+  @JsonKey(name: MeusPokemonsDatabaseContract.idPokemonColumn)
+  final int idPokemon;
 
   MeusPokemonsDatabaseEntity({
     required this.id,
+    required this.idPokemon,
   });
 
   factory MeusPokemonsDatabaseEntity.fromJson(Map<String, dynamic> json) =>
@@ -19,4 +23,5 @@ class MeusPokemonsDatabaseEntity {
 abstract class MeusPokemonsDatabaseContract {
   static const String meusPokemonsTable = "meus_pokemon_table";
   static const String idColumn = "id";
+  static const String idPokemonColumn = "id_pokemon";
 }

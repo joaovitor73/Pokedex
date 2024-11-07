@@ -8,6 +8,7 @@ part 'pokemon.freezed.dart';
 class Pokemon with _$Pokemon {
   const factory Pokemon({
     String? id,
+    String? idPokemon,
     required String nome,
     required List<String> tipo,
     required int hp,

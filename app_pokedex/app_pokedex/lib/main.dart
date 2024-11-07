@@ -36,7 +36,7 @@ class MyApp extends StatelessWidget {
       routes: {
         '/': (context) => const ListPokemon(),
         '/pokemonDiario': (context) => const PokemonDiarioUi(),
-        '/meusPkemons': (context) => const MeusPokemonsUI()
+        '/meusPkemons': (context) => const MeusPokemonsPageUi()
       },
     );
   }

@@ -1,53 +1,79 @@
-import 'package:app_pokedex/data/repository/pokemon_repository_impl.dart';
 import 'package:app_pokedex/domain/pokemon.dart';
-import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-
+import 'package:app_pokedex/ui/widget/my_app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:app_pokedex/data/repository/pokemon_repository_impl.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 
-class MeusPokemonsUI extends StatelessWidget {
-  const MeusPokemonsUI({super.key});
+class MeusPokemonsPageUi extends StatefulWidget {
+  const MeusPokemonsPageUi({super.key});
+
+  @override
+  _MeusPokemonsPageUiState createState() => _MeusPokemonsPageUiState();
+}
+
+class _MeusPokemonsPageUiState extends State<MeusPokemonsPageUi> {
+  late Future<List<Pokemon>> _pokemonsFuture;
+  late PokemonRepositorImpl pokemonRepositorImpl;
+  @override
+  void initState() {
+    super.initState();
+    pokemonRepositorImpl =
+        Provider.of<PokemonRepositorImpl>(context, listen: false);
+    _pokemonsFuture = pokemonRepositorImpl.getMeusPokemonsComIds();
+  }
 
   @override
   Widget build(BuildContext context) {
-    // Obtendo a instância do repositório usando o Provider
-    PokemonRepositorImpl pokemonRepositorImpl =
-        Provider.of<PokemonRepositorImpl>(context, listen: false);
-
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Meus Pokémons'),
-      ),
+      appBar: AppBar(title: Text("Meus Pokémons")),
       body: FutureBuilder<List<Pokemon>>(
-        future: pokemonRepositorImpl
-            .getMeusPokemons(), // Carrega a lista de Pokémon
+        future: _pokemonsFuture,
         builder: (context, snapshot) {
-          // Verifica se os dados estão prontos
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(
-                child:
-                    CircularProgressIndicator()); // Exibe um indicador de progresso
+            return Center(child: CircularProgressIndicator());
           } else if (snapshot.hasError) {
-            return Center(child: Text('Erro ao carregar Pokémons'));
+            return Center(child: Text('Erro: ${snapshot.error}'));
           } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-            return Center(child: Text('Nenhum Pokémon encontrado'));
+            return Center(child: Text('Nenhum Pokémon encontrado.'));
           } else {
-            // Lista de Pokémons carregada com sucesso
-            var pokemons = snapshot.data!;
+            final pokemons = snapshot.data!;
             return ListView.builder(
               itemCount: pokemons.length,
               itemBuilder: (context, index) {
                 var pokemon = pokemons[index];
-                return ListTile(
-                  leading: Image.network(
-                    pokemon.url, // URL da imagem do Pokémon
-                    width: 50,
-                    height: 50,
-                    fit: BoxFit.cover,
+                return GestureDetector(
+                  onTap: () async {
+                    // Remover Pokémon da lista
+                    await pokemonRepositorImpl
+                        .removerPokemon(int.tryParse(pokemon.id ?? '0') ?? 0);
+
+                    // Atualizar a tela com setState
+                    setState(() {
+                      // Recarregar os pokemons após a remoção
+                      _pokemonsFuture =
+                          pokemonRepositorImpl.getMeusPokemonsComIds();
+                    });
+
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text('${pokemon.nome} foi excluído'),
+                        backgroundColor: Colors.green,
+                      ),
+                    );
+                  },
+                  child: ListTile(
+                    leading: CachedNetworkImage(
+                      imageUrl: pokemon.url,
+                      width: 50,
+                      height: 50,
+                      fit: BoxFit.cover,
+                      placeholder: (context, url) =>
+                          CircularProgressIndicator(),
+                      errorWidget: (context, url, error) => Icon(Icons.error),
+                    ),
+                    title: Text(pokemon.nome),
                   ),
-                  title: Text(pokemon.nome), // Nome do Pokémon
                 );
               },
             );

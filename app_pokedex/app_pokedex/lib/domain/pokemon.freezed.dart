@@ -17,6 +17,7 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$Pokemon {
   String? get id => throw _privateConstructorUsedError;
+  String? get idPokemon => throw _privateConstructorUsedError;
   String get nome => throw _privateConstructorUsedError;
   List<String> get tipo => throw _privateConstructorUsedError;
   int get hp => throw _privateConstructorUsedError;
@@ -40,6 +41,7 @@ abstract class $PokemonCopyWith<$Res> {
   @useResult
   $Res call(
       {String? id,
+      String? idPokemon,
       String nome,
       List<String> tipo,
       int hp,
@@ -67,6 +69,7 @@ class _$PokemonCopyWithImpl<$Res, $Val extends Pokemon>
   @override
   $Res call({
     Object? id = freezed,
+    Object? idPokemon = freezed,
     Object? nome = null,
     Object? tipo = null,
     Object? hp = null,
@@ -81,6 +84,10 @@ class _$PokemonCopyWithImpl<$Res, $Val extends Pokemon>
       id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
+              as String?,
+      idPokemon: freezed == idPokemon
+          ? _value.idPokemon
+          : idPokemon // ignore: cast_nullable_to_non_nullable
               as String?,
       nome: null == nome
           ? _value.nome
@@ -131,6 +138,7 @@ abstract class _$$PokemonImplCopyWith<$Res> implements $PokemonCopyWith<$Res> {
   @useResult
   $Res call(
       {String? id,
+      String? idPokemon,
       String nome,
       List<String> tipo,
       int hp,
@@ -156,6 +164,7 @@ class __$$PokemonImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? id = freezed,
+    Object? idPokemon = freezed,
     Object? nome = null,
     Object? tipo = null,
     Object? hp = null,
@@ -170,6 +179,10 @@ class __$$PokemonImplCopyWithImpl<$Res>
       id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
+              as String?,
+      idPokemon: freezed == idPokemon
+          ? _value.idPokemon
+          : idPokemon // ignore: cast_nullable_to_non_nullable
               as String?,
       nome: null == nome
           ? _value.nome
@@ -216,6 +229,7 @@ class __$$PokemonImplCopyWithImpl<$Res>
 class _$PokemonImpl implements _Pokemon {
   const _$PokemonImpl(
       {this.id,
+      this.idPokemon,
       required this.nome,
       required final List<String> tipo,
       required this.hp,
@@ -229,6 +243,8 @@ class _$PokemonImpl implements _Pokemon {
 
   @override
   final String? id;
+  @override
+  final String? idPokemon;
   @override
   final String nome;
   final List<String> _tipo;
@@ -256,7 +272,7 @@ class _$PokemonImpl implements _Pokemon {
 
   @override
   String toString() {
-    return 'Pokemon(id: $id, nome: $nome, tipo: $tipo, hp: $hp, attack: $attack, defense: $defense, spAttack: $spAttack, spDefense: $spDefense, speed: $speed, url: $url)';
+    return 'Pokemon(id: $id, idPokemon: $idPokemon, nome: $nome, tipo: $tipo, hp: $hp, attack: $attack, defense: $defense, spAttack: $spAttack, spDefense: $spDefense, speed: $speed, url: $url)';
   }
 
   @override
@@ -265,6 +281,8 @@ class _$PokemonImpl implements _Pokemon {
         (other.runtimeType == runtimeType &&
             other is _$PokemonImpl &&
             (identical(other.id, id) || other.id == id) &&
+            (identical(other.idPokemon, idPokemon) ||
+                other.idPokemon == idPokemon) &&
             (identical(other.nome, nome) || other.nome == nome) &&
             const DeepCollectionEquality().equals(other._tipo, _tipo) &&
             (identical(other.hp, hp) || other.hp == hp) &&
@@ -282,6 +300,7 @@ class _$PokemonImpl implements _Pokemon {
   int get hashCode => Object.hash(
       runtimeType,
       id,
+      idPokemon,
       nome,
       const DeepCollectionEquality().hash(_tipo),
       hp,
@@ -304,6 +323,7 @@ class _$PokemonImpl implements _Pokemon {
 abstract class _Pokemon implements Pokemon {
   const factory _Pokemon(
       {final String? id,
+      final String? idPokemon,
       required final String nome,
       required final List<String> tipo,
       required final int hp,
@@ -316,6 +336,8 @@ abstract class _Pokemon implements Pokemon {
 
   @override
   String? get id;
+  @override
+  String? get idPokemon;
   @override
   String get nome;
   @override

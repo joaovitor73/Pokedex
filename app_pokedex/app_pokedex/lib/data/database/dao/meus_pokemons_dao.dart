@@ -4,22 +4,37 @@ import 'package:app_pokedex/data/database/entity/pokemon_database_entity.dart';
 import 'package:sqflite/sqflite.dart';
 
 class MeusPokemonsDao extends BaseDao {
-  Future<List<int>> selectAll() async {
+  Future<List<Map<String, dynamic>>> selectAll() async {
     final Database db = await getDb();
     final List<Map<String, dynamic>> maps = await db.query(
       MeusPokemonsDatabaseContract.meusPokemonsTable,
-      orderBy: '${MeusPokemonsDatabaseContract.idColumn} ASC',
+      orderBy: '${MeusPokemonsDatabaseContract.idPokemonColumn} ASC',
     );
+
+    // Retorna a lista com ambos os IDs (id e idPokemon)
     return List.generate(maps.length, (i) {
-      return maps[i][MeusPokemonsDatabaseContract.idColumn] as int;
+      return {
+        'id': maps[i][MeusPokemonsDatabaseContract.idColumn],
+        'idPokemon': maps[i][MeusPokemonsDatabaseContract.idPokemonColumn],
+      };
     });
   }
 
-  Future<void> insert(int id) async {
+  Future<void> insert(int idPokemon) async {
     final Database db = await getDb();
-    print("adicionando o pokemon de id: ${id}");
+    print("adicionando o pokemon de id: ${idPokemon}");
     await db.insert(MeusPokemonsDatabaseContract.meusPokemonsTable,
-        {MeusPokemonsDatabaseContract.idColumn: id});
+        {MeusPokemonsDatabaseContract.idPokemonColumn: idPokemon});
+  }
+
+  Future<void> delete(int id) async {
+    final Database db = await getDb();
+    print("removendo o pokemon de id: ${id}");
+    await db.delete(
+      MeusPokemonsDatabaseContract.meusPokemonsTable,
+      where: '${MeusPokemonsDatabaseContract.idColumn} = ?',
+      whereArgs: [id],
+    );
   }
 
   Future<int> getRowCount() async {

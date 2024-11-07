@@ -24,14 +24,40 @@ class PokemonRepositorImpl implements PokemonRepository {
     required this.meusPokemonsCrud,
   });
 
-  Future<List<Pokemon>> getMeusPokemons() async {
-    final dbEntity = await meusPokemonsDao.selectAll();
-    return databaseMapper
-        .toPokemons((await pokemonDao.selectAllById(dbEntity)));
+  Future<List<Pokemon>> getMeusPokemonsComIds() async {
+    final dbEntities =
+        await meusPokemonsDao.selectAll(); // Lista com id e idPokemon
+    List<Pokemon> pokemons = [];
+
+    // Iterar pelos resultados de dbEntities e adicionar os dois IDs
+    for (var entity in dbEntities) {
+      final id = entity['id'] as int;
+      final idPokemon = entity['idPokemon'] as int;
+
+      // Supondo que você tenha um método para pegar o Pokémon por idPokemon
+      final pokemonDetails = await pokemonDao.selectAllById([idPokemon]);
+
+      // Verificar se pokemonDetails tem pelo menos um elemento
+      if (pokemonDetails.isNotEmpty) {
+        var pokemon = databaseMapper.toPokemonComIds(pokemonDetails[0], id,
+            idPokemon); // Passando o primeiro item da lista
+        pokemons.add(pokemon);
+      }
+    }
+
+    return pokemons;
   }
 
   Future<void> insertMeuPokemon(int id) async {
     await meusPokemonsDao.insert(id);
+  }
+
+  Future<void> removerPokemon(int id) async {
+    await meusPokemonsDao.delete(id);
+  }
+
+  Future<int> getMeusPokemonsLength() async {
+    return await meusPokemonsDao.getRowCount();
   }
 
   @override

@@ -25,6 +25,26 @@ class DatabaseMapper {
     }
   }
 
+  Pokemon toPokemonComIds(
+      PokemonDatabaseEntity pokemonEntity, int id, int idPokemon) {
+    var pokemon = Pokemon(
+      id: id.toString(), // ID vindo da MeusPokemonsDatabaseEntity
+      idPokemon: idPokemon.toString(), // Converter int para String
+      // ID do Pokémon
+      nome: pokemonEntity.nome, // Nome do Pokémon
+      attack: pokemonEntity.attack, // Dano de ataque
+      defense: pokemonEntity.defense, // Dano de defesa
+      hp: pokemonEntity.hp, // Pontos de vida (HP)
+      spAttack: pokemonEntity.spAttack, // Pontos de ataque especial
+      spDefense: pokemonEntity.spDefense, // Pontos de defesa especial
+      speed: pokemonEntity.speed, // Velocidade
+      tipo: List<String>.from(jsonDecode(
+          pokemonEntity.tipo)), // Tipo(s) do Pokémon (lista de strings)
+      url: pokemonEntity.url, // URL da imagem ou outro dado relevante
+    );
+    return pokemon;
+  }
+
   List<Pokemon> toPokemons(List<PokemonDatabaseEntity> entities) {
     final List<Pokemon> pokemons = [];
     for (var movieEntity in entities) {
@@ -63,7 +83,7 @@ class DatabaseMapper {
   MeusPokemons toMeuPokemon(MeusPokemonsDatabaseEntity entity) {
     try {
       return MeusPokemons(
-        id: entity.id,
+        id: entity.id!,
       );
     } catch (e) {
       throw MapperException<PokemonDatabaseEntity, MeusPokemons>(e.toString());
@@ -82,10 +102,13 @@ class DatabaseMapper {
       MeusPokemons meuspokemons) {
     try {
       return MeusPokemonsDatabaseEntity(
-        id: meuspokemons.id,
+        id: null, // Supondo que id não possa ser null, você pode passar um valor padrão
+        idPokemon: meuspokemons
+            .id, // Assumindo que você tenha outro id relacionado ao pokemon
       );
     } catch (e) {
-      throw MapperException<PokemonDatabaseEntity, MeusPokemons>(e.toString());
+      throw MapperException<MeusPokemons, MeusPokemonsDatabaseEntity>(
+          e.toString());
     }
   }
 

@@ -8,9 +8,9 @@ import 'package:provider/provider.dart';
 
 class PokemonDiarioUi extends StatelessWidget {
   const PokemonDiarioUi({super.key});
-
   @override
   Widget build(BuildContext context) {
+    late int quantidadePokemons;
     final PokemonDiario pokemonDiario =
         Provider.of<PokemonDiario>(context, listen: true);
     final MeusPokemonsCrud meusPokemonsCrud =
@@ -68,9 +68,33 @@ class PokemonDiarioUi extends StatelessWidget {
       floatingActionButton: FloatingActionButton(
         elevation: 5,
         onPressed: () async => {
-          await meusPokemonsCrud.adicionarPokemon(
-              int.parse(pokemonDiario.pokemonDiario!.id ?? '0'),
-              pokemonRepositorImpl),
+          quantidadePokemons =
+              await pokemonRepositorImpl.getMeusPokemonsLength(),
+          if (quantidadePokemons < 6)
+            {
+              await meusPokemonsCrud.adicionarPokemon(
+                  int.parse(pokemonDiario.pokemonDiario!.id ?? '0'),
+                  pokemonRepositorImpl),
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  backgroundColor: Colors.green,
+                  content: Text(
+                      '${pokemonDiario.pokemonDiario!.nome} foi adicionado aos seus Pokémons'),
+                ),
+              ),
+              Navigator.pop(context),
+            }
+          else
+            {
+              ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(
+                  backgroundColor: Colors.red,
+                  content: Text(
+                      'Você já tem 6 Pokémons, exclua um para adicionar outro'),
+                ),
+              ),
+              Navigator.pop(context)
+            }
         },
         backgroundColor:
             CorPokemon.getTypeColor(pokemonDiario.pokemonDiario!.tipo[0]) ??
