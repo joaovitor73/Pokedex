@@ -59,10 +59,7 @@ class _MeusPokemonsPageUiState extends State<MeusPokemonsPageUi> {
                         // Remover Pokémon da lista
                         await pokemonRepositorImpl.removerPokemon(
                             int.tryParse(pokemon.id ?? '0') ?? 0);
-
-                        // Atualizar a tela com setState
                         setState(() {
-                          // Recarregar os pokemons após a remoção
                           _pokemonsFuture =
                               pokemonRepositorImpl.getMeusPokemonsComIds();
                         });

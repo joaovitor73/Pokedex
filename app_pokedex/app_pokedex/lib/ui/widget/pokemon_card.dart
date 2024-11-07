@@ -59,10 +59,8 @@ class PokemonCard extends StatelessWidget {
                   bottom: 8,
                 ),
                 child: Column(
-                  crossAxisAlignment:
-                      CrossAxisAlignment.start, // Alinha os itens à esquerda
-                  mainAxisAlignment: MainAxisAlignment
-                      .start, // Alinha os itens no topo (verticalmente)
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Text(
                       pokemon.nome,
@@ -75,8 +73,7 @@ class PokemonCard extends StatelessWidget {
                     const SizedBox(height: 5),
                     Text(
                       pokemon.tipo != null && pokemon.tipo.isNotEmpty
-                          ? pokemon.tipo
-                              .join(', ') // Junta todos os tipos com vírgula
+                          ? pokemon.tipo.join(', ')
                           : '',
                       style: const TextStyle(
                         fontSize: 15,

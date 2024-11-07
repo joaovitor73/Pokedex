@@ -4,6 +4,7 @@ import 'package:app_pokedex/domain/pokemon_diario.dart';
 import 'package:app_pokedex/ui/widget/my_app_bar.dart';
 import 'package:app_pokedex/ui/widget/my_card_pokemon.dart';
 import 'package:app_pokedex/utils/cor_pokemon.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -46,7 +47,8 @@ class PokemonDiarioUi extends StatelessWidget {
                     height: 280,
                     decoration: BoxDecoration(
                       image: DecorationImage(
-                        image: NetworkImage(pokemonDiario.pokemonDiario!.url),
+                        image: CachedNetworkImageProvider(
+                            pokemonDiario.pokemonDiario!.url),
                         fit: BoxFit.cover,
                       ),
                     ),
