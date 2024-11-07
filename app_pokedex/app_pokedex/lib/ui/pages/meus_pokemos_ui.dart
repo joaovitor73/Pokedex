@@ -1,5 +1,6 @@
 import 'package:app_pokedex/domain/pokemon.dart';
 import 'package:app_pokedex/ui/widget/my_app_bar.dart';
+import 'package:app_pokedex/ui/widget/pokemon_card.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:app_pokedex/data/repository/pokemon_repository_impl.dart';
@@ -43,7 +44,7 @@ class _MeusPokemonsPageUiState extends State<MeusPokemonsPageUi> {
               itemBuilder: (context, index) {
                 var pokemon = pokemons[index];
                 return GestureDetector(
-                  onTap: () async {
+                  onLongPress: () async {
                     // Remover Pokémon da lista
                     await pokemonRepositorImpl
                         .removerPokemon(int.tryParse(pokemon.id ?? '0') ?? 0);
@@ -62,18 +63,7 @@ class _MeusPokemonsPageUiState extends State<MeusPokemonsPageUi> {
                       ),
                     );
                   },
-                  child: ListTile(
-                    leading: CachedNetworkImage(
-                      imageUrl: pokemon.url,
-                      width: 50,
-                      height: 50,
-                      fit: BoxFit.cover,
-                      placeholder: (context, url) =>
-                          CircularProgressIndicator(),
-                      errorWidget: (context, url, error) => Icon(Icons.error),
-                    ),
-                    title: Text(pokemon.nome),
-                  ),
+                  child: PokemonCard(pokemon: pokemon),
                 );
               },
             );

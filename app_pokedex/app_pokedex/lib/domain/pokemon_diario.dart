@@ -7,6 +7,12 @@ import 'dart:math';
 class PokemonDiario extends ChangeNotifier {
   Pokemon? _pokemonDiario;
   Pokemon? get pokemonDiario => _pokemonDiario;
+  Pokemon? _pokemonEscolhido;
+  Pokemon? get pokemonEscolhido => _pokemonEscolhido;
+  set pokemonEscolhido(Pokemon? value) {
+    _pokemonEscolhido = value;
+    notifyListeners();
+  }
 
   Future<void> pokemonDia(
       Prefes prefes, PokemonRepositorImpl pokemonRepositorImpl) async {

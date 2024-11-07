@@ -1,33 +1,25 @@
-import 'package:app_pokedex/data/repository/pokemon_repository_impl.dart';
-import 'package:app_pokedex/domain/meus_pokemons_crud.dart';
+import 'package:app_pokedex/domain/pokemon.dart';
 import 'package:app_pokedex/domain/pokemon_diario.dart';
-import 'package:app_pokedex/ui/widget/my_app_bar.dart';
-import 'package:app_pokedex/ui/widget/my_card_pokemon.dart';
 import 'package:app_pokedex/utils/cor_pokemon.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class PokemonDiarioUi extends StatelessWidget {
-  const PokemonDiarioUi({super.key});
+class MyCardPokemon extends StatelessWidget {
+  const MyCardPokemon({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    // Acessando o Pokémon diário a partir do provider
-    final PokemonDiario pokemonDiario = Provider.of<PokemonDiario>(context);
-    final MeusPokemonsCrud meusPokemonsCrud =
-        Provider.of<MeusPokemonsCrud>(context, listen: false);
-    final PokemonRepositorImpl pokemonRepositorImpl =
-        Provider.of<PokemonRepositorImpl>(context, listen: false);
-
+    final PokemonDiario pokemon =
+        Provider.of<PokemonDiario>(context, listen: true);
     return Scaffold(
       body: Column(
         children: [
           Container(
             height: 400,
             decoration: BoxDecoration(
-              color: CorPokemon.getTypeColor(
-                      pokemonDiario.pokemonDiario!.tipo[0]) ??
-                  Colors.white,
+              color:
+                  CorPokemon.getTypeColor(pokemon.pokemonEscolhido!.tipo[0]) ??
+                      Colors.white,
               borderRadius: const BorderRadius.only(
                 bottomLeft: Radius.circular(
                     80.0), // Raio para o canto inferior esquerdo
@@ -46,7 +38,7 @@ class PokemonDiarioUi extends StatelessWidget {
                     height: 280,
                     decoration: BoxDecoration(
                       image: DecorationImage(
-                        image: NetworkImage(pokemonDiario.pokemonDiario!.url),
+                        image: NetworkImage(pokemon.pokemonEscolhido!.url),
                         fit: BoxFit.cover,
                       ),
                     ),
@@ -63,7 +55,7 @@ class PokemonDiarioUi extends StatelessWidget {
                 // Nome do Pokémon
                 Center(
                   child: Text(
-                    pokemonDiario.pokemonDiario!.nome,
+                    pokemon.pokemonEscolhido!.nome,
                     style: const TextStyle(
                       fontSize: 30,
                       fontWeight: FontWeight.bold,
@@ -75,7 +67,7 @@ class PokemonDiarioUi extends StatelessWidget {
                 // Tipos do Pokémon
                 Center(
                   child: Text(
-                    '${pokemonDiario.pokemonDiario!.tipo.join(', ')}',
+                    '${pokemon.pokemonEscolhido!.tipo.join(', ')}',
                     style: const TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
@@ -86,13 +78,13 @@ class PokemonDiarioUi extends StatelessWidget {
 
                 // Barra de progresso para Ataque
                 Text(
-                  'Ataque: ${pokemonDiario.pokemonDiario!.attack}',
+                  'Ataque: ${pokemon.pokemonEscolhido!.attack}',
                   style: const TextStyle(
                     fontSize: 18,
                   ),
                 ),
                 LinearProgressIndicator(
-                  value: pokemonDiario.pokemonDiario!.attack /
+                  value: pokemon.pokemonEscolhido!.attack /
                       100, // Valor entre 0 e 1
                   backgroundColor: Colors.grey[300],
                   valueColor: AlwaysStoppedAnimation<Color>(Colors.red),
@@ -101,13 +93,13 @@ class PokemonDiarioUi extends StatelessWidget {
 
                 // Barra de progresso para Defesa
                 Text(
-                  'Defesa: ${pokemonDiario.pokemonDiario!.defense}',
+                  'Defesa: ${pokemon.pokemonEscolhido!.defense}',
                   style: const TextStyle(
                     fontSize: 18,
                   ),
                 ),
                 LinearProgressIndicator(
-                  value: pokemonDiario.pokemonDiario!.defense / 100,
+                  value: pokemon.pokemonEscolhido!.defense / 100,
                   backgroundColor: Colors.grey[300],
                   valueColor: AlwaysStoppedAnimation<Color>(Colors.green),
                 ),
@@ -115,13 +107,13 @@ class PokemonDiarioUi extends StatelessWidget {
 
                 // Barra de progresso para HP
                 Text(
-                  'HP: ${pokemonDiario.pokemonDiario!.hp}',
+                  'HP: ${pokemon.pokemonEscolhido!.hp}',
                   style: const TextStyle(
                     fontSize: 18,
                   ),
                 ),
                 LinearProgressIndicator(
-                  value: pokemonDiario.pokemonDiario!.hp / 100,
+                  value: pokemon.pokemonEscolhido!.hp / 100,
                   backgroundColor: Colors.grey[300],
                   valueColor: AlwaysStoppedAnimation<Color>(Colors.blue),
                 ),
@@ -129,13 +121,13 @@ class PokemonDiarioUi extends StatelessWidget {
 
                 // Barra de progresso para Ataque Especial
                 Text(
-                  'Ataque Especial: ${pokemonDiario.pokemonDiario!.spAttack}',
+                  'Ataque Especial: ${pokemon.pokemonEscolhido!.spAttack}',
                   style: const TextStyle(
                     fontSize: 18,
                   ),
                 ),
                 LinearProgressIndicator(
-                  value: pokemonDiario.pokemonDiario!.spAttack / 100,
+                  value: pokemon.pokemonEscolhido!.spAttack / 100,
                   backgroundColor: Colors.grey[300],
                   valueColor: AlwaysStoppedAnimation<Color>(Colors.orange),
                 ),
@@ -143,13 +135,13 @@ class PokemonDiarioUi extends StatelessWidget {
 
                 // Barra de progresso para Defesa Especial
                 Text(
-                  'Defesa Especial: ${pokemonDiario.pokemonDiario!.spDefense}',
+                  'Defesa Especial: ${pokemon.pokemonEscolhido!.spDefense}',
                   style: const TextStyle(
                     fontSize: 18,
                   ),
                 ),
                 LinearProgressIndicator(
-                  value: pokemonDiario.pokemonDiario!.spDefense / 100,
+                  value: pokemon.pokemonEscolhido!.spDefense / 100,
                   backgroundColor: Colors.grey[300],
                   valueColor: AlwaysStoppedAnimation<Color>(Colors.purple),
                 ),
@@ -157,57 +149,20 @@ class PokemonDiarioUi extends StatelessWidget {
 
                 // Barra de progresso para Velocidade
                 Text(
-                  'Velocidade: ${pokemonDiario.pokemonDiario!.speed}',
+                  'Velocidade: ${pokemon.pokemonEscolhido!.speed}',
                   style: const TextStyle(
                     fontSize: 18,
                   ),
                 ),
                 LinearProgressIndicator(
-                  value: pokemonDiario.pokemonDiario!.speed / 100,
+                  value: pokemon.pokemonEscolhido!.speed / 100,
                   backgroundColor: Colors.grey[300],
                   valueColor: AlwaysStoppedAnimation<Color>(Colors.teal),
                 ),
               ],
             ),
-          ),
+          )
         ],
-      ),
-      floatingActionButton: FloatingActionButton(
-        elevation: 5,
-        onPressed: () async {
-          final int quantidadePokemons =
-              await pokemonRepositorImpl.getMeusPokemonsLength();
-          if (quantidadePokemons < 6) {
-            await meusPokemonsCrud.adicionarPokemon(
-              int.parse(pokemonDiario.pokemonDiario!.id ?? '0'),
-              pokemonRepositorImpl,
-            );
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                backgroundColor: Colors.green,
-                content: Text(
-                    '${pokemonDiario.pokemonDiario!.nome} foi adicionado aos seus Pokémons'),
-              ),
-            );
-            Navigator.pop(context);
-          } else {
-            ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(
-                backgroundColor: Colors.red,
-                content: Text(
-                    'Você já tem 6 Pokémons, exclua um para adicionar outro'),
-              ),
-            );
-            Navigator.pop(context);
-          }
-        },
-        backgroundColor:
-            CorPokemon.getTypeColor(pokemonDiario.pokemonDiario!.tipo[0]) ??
-                Colors.white,
-        child: const Icon(
-          Icons.add,
-          color: Colors.white,
-        ),
       ),
     );
   }
