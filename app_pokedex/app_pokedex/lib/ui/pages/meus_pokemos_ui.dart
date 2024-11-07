@@ -1,6 +1,7 @@
 import 'package:app_pokedex/domain/pokemon.dart';
 import 'package:app_pokedex/ui/widget/my_app_bar.dart';
 import 'package:app_pokedex/ui/widget/pokemon_card.dart';
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:app_pokedex/data/repository/pokemon_repository_impl.dart';
@@ -27,7 +28,7 @@ class _MeusPokemonsPageUiState extends State<MeusPokemonsPageUi> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Meus Pokémons")),
+      appBar: const MyAppBar(title: "Meus Pokémons"),
       body: FutureBuilder<List<Pokemon>>(
         future: _pokemonsFuture,
         builder: (context, snapshot) {
@@ -45,23 +46,36 @@ class _MeusPokemonsPageUiState extends State<MeusPokemonsPageUi> {
                 var pokemon = pokemons[index];
                 return GestureDetector(
                   onLongPress: () async {
-                    // Remover Pokémon da lista
-                    await pokemonRepositorImpl
-                        .removerPokemon(int.tryParse(pokemon.id ?? '0') ?? 0);
+                    AwesomeDialog(
+                      context: context,
+                      dialogType: DialogType.warning,
+                      animType: AnimType.rightSlide,
+                      title: 'Deseja remover este Pokémon?',
+                      desc:
+                          'Tem certeza que deseja remover ${pokemon.nome} da sua lista?',
+                      btnCancelText: 'Cancelar',
+                      btnCancelOnPress: () {},
+                      btnOkText: 'Remover',
+                      btnOkOnPress: () async {
+                        // Remover Pokémon da lista
+                        await pokemonRepositorImpl.removerPokemon(
+                            int.tryParse(pokemon.id ?? '0') ?? 0);
 
-                    // Atualizar a tela com setState
-                    setState(() {
-                      // Recarregar os pokemons após a remoção
-                      _pokemonsFuture =
-                          pokemonRepositorImpl.getMeusPokemonsComIds();
-                    });
+                        // Atualizar a tela com setState
+                        setState(() {
+                          // Recarregar os pokemons após a remoção
+                          _pokemonsFuture =
+                              pokemonRepositorImpl.getMeusPokemonsComIds();
+                        });
 
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                        content: Text('${pokemon.nome} foi excluído'),
-                        backgroundColor: Colors.green,
-                      ),
-                    );
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text('${pokemon.nome} foi excluído'),
+                            backgroundColor: Colors.green,
+                          ),
+                        );
+                      },
+                    )..show();
                   },
                   child: PokemonCard(pokemon: pokemon),
                 );
