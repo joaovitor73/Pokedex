@@ -9,7 +9,6 @@ import 'package:app_pokedex/domain/meus_pokemons_crud.dart';
 import 'package:app_pokedex/domain/pokemon_diario.dart';
 import 'package:provider/provider.dart';
 import 'package:provider/single_child_widget.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class ConfigureProviders {
   final List<SingleChildWidget> providers;

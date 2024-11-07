@@ -1,5 +1,4 @@
 import 'package:app_pokedex/data/repository/pokemon_repository_impl.dart';
-import 'package:flutter/material.dart';
 
 class MeusPokemonsCrud {
   Future<void> adicionarPokemon(

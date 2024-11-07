@@ -5,7 +5,6 @@ import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:app_pokedex/data/repository/pokemon_repository_impl.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 
 class MeusPokemonsPageUi extends StatefulWidget {
   const MeusPokemonsPageUi({super.key});
@@ -33,11 +32,11 @@ class _MeusPokemonsPageUiState extends State<MeusPokemonsPageUi> {
         future: _pokemonsFuture,
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(child: CircularProgressIndicator());
+            return const Center(child: CircularProgressIndicator());
           } else if (snapshot.hasError) {
             return Center(child: Text('Erro: ${snapshot.error}'));
           } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-            return Center(child: Text('Nenhum Pokémon encontrado.'));
+            return const Center(child: Text('Nenhum Pokémon encontrado.'));
           } else {
             final pokemons = snapshot.data!;
             return ListView.builder(
@@ -75,7 +74,7 @@ class _MeusPokemonsPageUiState extends State<MeusPokemonsPageUi> {
                           ),
                         );
                       },
-                    )..show();
+                    );
                   },
                   child: PokemonCard(pokemon: pokemon),
                 );

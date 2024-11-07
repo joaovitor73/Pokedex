@@ -1,6 +1,5 @@
 import 'package:app_pokedex/data/database/dao/base_dao.dart';
 import 'package:app_pokedex/data/database/entity/meus_pokemons_database_entity.dart';
-import 'package:app_pokedex/data/database/entity/pokemon_database_entity.dart';
 import 'package:sqflite/sqflite.dart';
 
 class MeusPokemonsDao extends BaseDao {

@@ -1,6 +1,5 @@
 import 'package:app_pokedex/domain/pokemon.dart';
 import 'package:app_pokedex/domain/pokemon_diario.dart';
-import 'package:app_pokedex/ui/widget/my_card_pokemon.dart';
 import 'package:app_pokedex/utils/cor_pokemon.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';

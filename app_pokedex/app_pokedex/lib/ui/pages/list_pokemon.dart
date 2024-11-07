@@ -1,6 +1,3 @@
-import 'dart:async';
-
-import 'package:app_pokedex/data/database/dao/base_dao.dart';
 import 'package:app_pokedex/data/database/dao/pokemon_dao.dart';
 import 'package:app_pokedex/data/repository/pokemon_repository_impl.dart';
 import 'package:app_pokedex/data/shared_preferences/prefres.dart';
@@ -68,9 +65,9 @@ class _ListPokemonState extends State<ListPokemon> {
         ),
       ),
       floatingActionButton: SpeedDial(
-        icon: Icons.add, // Ícone inicial do SpeedDial
-        activeIcon: Icons.close, // Ícone quando o SpeedDial está aberto
-        backgroundColor: Colors.white, // Cor do botão principal
+        icon: Icons.add,
+        activeIcon: Icons.close,
+        backgroundColor: Colors.white,
         children: [
           SpeedDialChild(
               child: const Icon(FeatherIcons.calendar, color: Colors.black),
